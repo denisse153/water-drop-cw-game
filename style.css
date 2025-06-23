@@ -77,24 +77,39 @@ header {
 }
 
 #jerrycan {
+  position: relative;
   width: 100px;
   height: 140px;
-  border: 4px solid #ffc907;
-  position: relative;
-  background-color: #fff;
-  border-radius: 10px;
-  overflow: hidden;
-  box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
   margin-bottom: 15px;
+  /* Remove border, background, and box-shadow for image overlay */
+  border: none;
+  background: none;
+  box-shadow: none;
+}
+
+#jerrycan img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  pointer-events: none;
 }
 
 #water-fill {
   position: absolute;
   bottom: 0;
+  left: 0;
   width: 100%;
   height: 0%;
   background-color: #2e9df7;
+  opacity: 0.7;
+  z-index: 2;
   transition: height 0.3s ease;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
 }
 
 #start-btn {
@@ -143,6 +158,21 @@ header {
   animation: confetti-fall 2.2s linear forwards;
 }
 
+.water-drop {
+  position: absolute;
+  top: 0;
+  border-radius: 50%;
+  background: #2e9df7;
+  box-shadow: 0 2px 8px rgba(46,157,247,0.15);
+  cursor: pointer;
+  z-index: 10;
+  animation: drop-fall 2.5s linear forwards;
+}
+
+.water-drop.bad {
+  background: #8d5524; /* brown for bad droplets */
+}
+
 @keyframes fall {
   from {
     top: -40px;
@@ -156,6 +186,13 @@ header {
   to {
     transform: translateY(520px) rotateZ(360deg);
     opacity: 0.2;
+  }
+}
+
+@keyframes drop-fall {
+  to {
+    top: 480px;
+    opacity: 0.7;
   }
 }
 
@@ -202,4 +239,11 @@ header {
     width: 100%;
     box-sizing: border-box;
   }
+}
+
+.lives img {
+  width: 24px;
+  height: 32px;
+  margin-right: 2px;
+  vertical-align: middle;
 }

@@ -48,7 +48,16 @@ function startGame() {
 function updateUI() {
   scoreEl.textContent = score;
   timeEl.textContent = timeLeft;
-  livesEl.innerHTML = '🚒️ '.repeat(lives);
+  livesEl.innerHTML = '';
+  for (let i = 0; i < lives; i++) {
+    const img = document.createElement('img');
+    img.src = 'emptyjerrycan.png';
+    img.alt = 'Jerry Can';
+    img.style.width = '28px';
+    img.style.height = '38px';
+    img.style.marginRight = '2px';
+    livesEl.appendChild(img);
+  }
   const fill = document.getElementById("water-fill");
   if (fill) {
     fill.style.height = `${score}%`;
