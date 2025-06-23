@@ -44,25 +44,152 @@ header {
   margin-bottom: 10px;
 }
 
+.main-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
 .logo {
-  width: 200px;
+  width: 220px;
+  margin-bottom: 8px;
 }
 
 .stats-bar {
   display: flex;
   justify-content: space-between;
+  align-items: flex-end;
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto 10px auto;
+}
+
+.stat-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 80px;
+}
+
+.stat-label {
   font-size: 18px;
-  margin: 10px 0;
+  font-weight: bold;
+  letter-spacing: 1px;
+  margin-bottom: 2px;
+}
+
+.stat-value {
+  font-size: 22px;
+  font-weight: bold;
+  margin-bottom: 2px;
+}
+
+#time.red {
+  color: #F5402C;
+}
+
+.lives {
+  display: flex;
+  align-items: center;
+  min-height: 32px;
+}
+
+.lives img {
+  width: 24px;
+  height: 32px;
+  margin-right: 2px;
+  vertical-align: middle;
 }
 
 #game-container {
   position: relative;
   width: 100%;
-  height: 500px;
+  height: 600px;
+  background: #fff;
   border: 2px solid #000;
   border-radius: 10px;
-  background-color: #e6f7ff;
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+#drops-area {
+  position: absolute;
+  top: 60px;
+  left: 0;
+  width: 100%;
+  height: 75%;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.water-drop {
+  position: absolute;
+  border-radius: 50% 50% 60% 60% / 60% 60% 100% 100%;
+  background: #2e9df7;
+  box-shadow: 0 2px 8px rgba(46,157,247,0.15);
+  cursor: pointer;
+  z-index: 10;
+  animation: drop-fall 2.5s linear forwards;
+  pointer-events: auto;
+}
+
+.water-drop.bad {
+  background: #8d5524;
+}
+
+@keyframes fall {
+  from {
+    top: -40px;
+  }
+  to {
+    top: 500px;
+  }
+}
+
+@keyframes confetti-fall {
+  to {
+    transform: translateY(520px) rotateZ(360deg);
+    opacity: 0.2;
+  }
+}
+
+@keyframes drop-fall {
+  from { top: 0; }
+  to { top: 85%; opacity: 0.7; }
+}
+
+#jerrycan-bottom {
+  position: relative;
+  width: 140px;
+  height: 180px;
+  margin: 0 auto 10px auto;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+}
+
+.big-jerrycan {
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+#water-fill-bottom {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 0%;
+  background: #2e9df7;
+  opacity: 0.7;
+  z-index: 2;
+  border-bottom-left-radius: 18px;
+  border-bottom-right-radius: 18px;
+  transition: height 0.3s ease;
 }
 
 #start-overlay {
@@ -158,44 +285,6 @@ header {
   animation: confetti-fall 2.2s linear forwards;
 }
 
-.water-drop {
-  position: absolute;
-  top: 0;
-  border-radius: 50%;
-  background: #2e9df7;
-  box-shadow: 0 2px 8px rgba(46,157,247,0.15);
-  cursor: pointer;
-  z-index: 10;
-  animation: drop-fall 2.5s linear forwards;
-}
-
-.water-drop.bad {
-  background: #8d5524; /* brown for bad droplets */
-}
-
-@keyframes fall {
-  from {
-    top: -40px;
-  }
-  to {
-    top: 500px;
-  }
-}
-
-@keyframes confetti-fall {
-  to {
-    transform: translateY(520px) rotateZ(360deg);
-    opacity: 0.2;
-  }
-}
-
-@keyframes drop-fall {
-  to {
-    top: 480px;
-    opacity: 0.7;
-  }
-}
-
 @media (max-width: 600px) {
   .game-wrapper {
     padding: 5px;
@@ -205,7 +294,7 @@ header {
     margin-bottom: 5px;
   }
   .logo {
-    width: 120px;
+    width: 140px;
   }
   .stats-bar {
     font-size: 13px;
@@ -214,7 +303,7 @@ header {
     align-items: flex-start;
   }
   #game-container {
-    height: 320px;
+    height: 400px;
     min-width: 0;
     border-width: 1px;
     font-size: 14px;
@@ -239,11 +328,4 @@ header {
     width: 100%;
     box-sizing: border-box;
   }
-}
-
-.lives img {
-  width: 24px;
-  height: 32px;
-  margin-right: 2px;
-  vertical-align: middle;
 }

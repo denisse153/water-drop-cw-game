@@ -7,28 +7,28 @@
 </head>
 <body>
   <div class="game-wrapper">
-    <header>
+    <header class="main-header">
       <img src="cw_logo-horizontal.png" alt="charity: water" class="logo" />
       <div class="stats-bar">
-        <div class="score">SCORE <span id="score">0</span></div>
-        <div class="timer">TIMER <span id="time">60</span>s</div>
-        <div class="lives" id="lives"></div>
+        <div class="stat-block">
+          <div class="stat-label">SCORE</div>
+          <div class="stat-value" id="score">0</div>
+        </div>
+        <div class="stat-block">
+          <div class="stat-label">TIMER</div>
+          <div class="stat-value" id="time">60s</div>
+        </div>
+        <div class="stat-block">
+          <div class="stat-label">LIVES</div>
+          <div class="lives" id="lives"></div>
+        </div>
       </div>
     </header>
-
     <div id="game-container">
-      <div id="start-overlay">
-        <div style="display: flex; align-items: center; gap: 16px; flex-direction: column;">
-          <div id="jerrycan" style="position: relative; width: 100px; height: 140px;">
-            <img src="emptyjerrycan.png" alt="Jerry Can" style="width: 100%; height: 100%; display: block; position: absolute; top: 0; left: 0; z-index: 1;">
-            <div id="water-fill"></div>
-          </div>
-          <div id="overlay-timer" style="font-size: 2em; color: #2e9df7; margin: 10px 0; display: none;">60</div>
-          <div style="display: flex; gap: 10px;">
-            <button id="start-btn">Start</button>
-            <button id="reset-btn" style="display: none;">Reset</button>
-          </div>
-        </div>
+      <div id="drops-area"></div>
+      <div id="jerrycan-bottom">
+        <img src="emptyjerrycan.png" alt="Jerry Can" class="big-jerrycan" />
+        <div id="water-fill-bottom"></div>
       </div>
       <div id="confetti-container"></div>
     </div>
