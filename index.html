@@ -1,0 +1,38 @@
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Charity: Water Game</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="game-wrapper">
+    <header>
+      <img src="cw_logo-horizontal.png" alt="charity: water" class="logo" />
+      <div class="stats-bar">
+        <div class="score">SCORE <span id="score">0</span></div>
+        <div class="timer">TIMER <span id="time">60</span>s</div>
+        <div class="lives" id="lives">🚒️ 🚒️ 🚒️ 🚒️</div>
+      </div>
+    </header>
+
+    <div id="game-container">
+      <div id="start-overlay">
+        <div style="display: flex; align-items: center; gap: 16px; flex-direction: column;">
+          <div id="jerrycan">
+            <div id="water-fill"></div>
+          </div>
+          <div id="overlay-timer" style="font-size: 2em; color: #2e9df7; margin: 10px 0; display: none;">60</div>
+          <div style="display: flex; gap: 10px;">
+            <button id="start-btn">Start</button>
+            <button id="reset-btn" style="display: none;">Reset</button>
+          </div>
+        </div>
+      </div>
+      <div id="confetti-container"></div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
