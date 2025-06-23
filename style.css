@@ -58,11 +58,13 @@ header {
 
 .stats-bar {
   display: flex;
+  flex-direction: row;
   justify-content: space-between;
   align-items: flex-end;
   width: 100%;
   max-width: 400px;
   margin: 0 auto 10px auto;
+  gap: 0;
 }
 
 .stat-block {
@@ -297,10 +299,16 @@ header {
     width: 140px;
   }
   .stats-bar {
+    flex-direction: row;
+    gap: 0;
+    max-width: 100vw;
+  }
+  .stat-block {
+    min-width: 0;
+    flex: 1 1 0;
+  }
+  .stat-label, .stat-value {
     font-size: 13px;
-    flex-direction: column;
-    gap: 4px;
-    align-items: flex-start;
   }
   #game-container {
     height: 400px;

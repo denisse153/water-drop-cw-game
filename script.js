@@ -43,6 +43,8 @@ function startGame() {
   gameInterval = setInterval(() => {
     createDrop();
   }, 800);
+
+  startBtn.style.display = "none";
 }
 
 function updateUI() {
@@ -51,11 +53,9 @@ function updateUI() {
   livesEl.innerHTML = '';
   for (let i = 0; i < lives; i++) {
     const img = document.createElement('img');
-    img.src = 'emptyjerrycan.png';
+    img.src = 'jerrycan-yellow.png';
     img.alt = 'Jerry Can';
-    img.style.width = '28px';
-    img.style.height = '38px';
-    img.style.marginRight = '2px';
+    img.className = 'life-jerrycan';
     livesEl.appendChild(img);
   }
   const fill = document.getElementById("water-fill");
@@ -115,6 +115,7 @@ function endGame(won) {
     alert("Game Over. Try again!");
   }
   overlay.style.display = "flex";
+  startBtn.style.display = "block";
   resetBtn.style.display = "none";
 }
 
@@ -127,8 +128,7 @@ function resetGame() {
   droplets = 0;
   updateUI();
   overlay.style.display = "flex";
-  confettiContainer.innerHTML = "";
-  overlayTimer.style.display = "none";
+  startBtn.style.display = "block";
   resetBtn.style.display = "none";
   // Remove all drops
   document.querySelectorAll('.water-drop').forEach(d => d.remove());
