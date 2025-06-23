@@ -9,6 +9,7 @@ const scoreEl = document.getElementById("score");
 const timeEl = document.getElementById("time");
 const livesEl = document.getElementById("lives");
 const container = document.getElementById("game-container");
+const dropsArea = document.getElementById("drops-area");
 const startBtn = document.getElementById("start-btn");
 const overlay = document.getElementById("start-overlay");
 const resetBtn = document.getElementById("reset-btn");
@@ -72,12 +73,12 @@ function createDrop() {
   const size = isGood ? (Math.random() > 0.5 ? 60 : 40) : (Math.random() > 0.5 ? 60 : 40);
   drop.style.width = size + "px";
   drop.style.height = size + "px";
-  drop.style.left = Math.random() * (container.offsetWidth - size) + "px";
+  drop.style.left = Math.random() * (dropsArea.offsetWidth - size) + "px";
 
   drop.addEventListener("click", () => handleClick(drop, isGood, size));
   drop.addEventListener("animationend", () => drop.remove());
 
-  container.appendChild(drop);
+  dropsArea.appendChild(drop);
 }
 
 function handleClick(drop, isGood, size) {
@@ -129,7 +130,7 @@ function resetGame() {
   updateUI();
   overlay.style.display = "flex";
   startBtn.style.display = "block";
-  resetBtn.style.display = "none";
+  resetBtn.style.display = "inline-block";
   // Remove all drops
   document.querySelectorAll('.water-drop').forEach(d => d.remove());
 }

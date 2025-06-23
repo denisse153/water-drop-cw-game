@@ -27,9 +27,12 @@
     <div id="game-container">
       <div id="drops-area"></div>
       <button id="start-btn" class="main-btn">Start</button>
-      <div id="jerrycan-bottom">
-        <img src="jerrycan-yellow.png" alt="Jerry Can" class="big-jerrycan" />
-        <div id="water-fill-bottom"></div>
+      <div id="jerrycan-row" style="display: flex; justify-content: center; align-items: flex-end; gap: 16px; width: 100%;">
+        <div id="jerrycan-bottom">
+          <img src="jerrycan-yellow.png" alt="Jerry Can" class="big-jerrycan" />
+          <div id="water-fill-bottom"></div>
+        </div>
+        <button id="reset-btn" class="main-btn" style="display: none; align-self: flex-end;">Restart</button>
       </div>
       <div id="confetti-container"></div>
     </div>
