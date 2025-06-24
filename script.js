@@ -6,15 +6,13 @@ let gameInterval;
 let timerInterval;
 
 const scoreEl = document.getElementById("score");
-const timeEl = document.getElementById("time");
+const timeDisplay = document.getElementById("time");
 const livesEl = document.getElementById("lives");
 const container = document.getElementById("game-container");
 const dropsArea = document.getElementById("drops-area");
 const startBtn = document.getElementById("start-btn");
-const overlay = document.getElementById("start-overlay");
 const resetBtn = document.getElementById("reset-btn");
 const confettiContainer = document.getElementById("confetti-container");
-const overlayTimer = document.getElementById("overlay-timer");
 
 startBtn.addEventListener("click", startGame);
 resetBtn.addEventListener("click", resetGame);
@@ -25,36 +23,30 @@ function startGame() {
   lives = 4;
   droplets = 0;
   updateUI();
-  overlay.style.display = "none";
   confettiContainer.innerHTML = "";
-  // Show reset button and overlay timer
   resetBtn.style.display = "inline-block";
-  overlayTimer.style.display = "block";
-  overlayTimer.textContent = timeLeft;
+  startBtn.style.display = "none";
 
   timerInterval = setInterval(() => {
     timeLeft--;
-    timeEl.textContent = timeLeft;
-    overlayTimer.textContent = timeLeft;
+    timeDisplay.textContent = timeLeft + 's';
     if (timeLeft <= 0) {
-      endGame(droplets >= 30);
+      endGame(score >= 90);
     }
   }, 1000);
 
   gameInterval = setInterval(() => {
     createDrop();
-  }, 800);
-
-  startBtn.style.display = "none";
+  }, 300);
 }
 
 function updateUI() {
   scoreEl.textContent = score;
-  timeEl.textContent = timeLeft;
+  timeDisplay.textContent = timeLeft + 's';
   livesEl.innerHTML = '';
   for (let i = 0; i < lives; i++) {
     const img = document.createElement('img');
-    img.src = 'jerrycan-yellow.png';
+    img.src = 'img/emptyjerrycan.png';
     img.alt = 'Jerry Can';
     img.className = 'life-jerrycan';
     livesEl.appendChild(img);
@@ -70,7 +62,8 @@ function createDrop() {
   const isGood = Math.random() > 0.3;
   drop.classList.add("water-drop");
   drop.classList.add(isGood ? "good" : "bad");
-  const size = isGood ? (Math.random() > 0.5 ? 60 : 40) : (Math.random() > 0.5 ? 60 : 40);
+  // Make big droplets much larger for better distinction
+  const size = isGood ? (Math.random() > 0.5 ? 80 : 40) : (Math.random() > 0.5 ? 80 : 40);
   drop.style.width = size + "px";
   drop.style.height = size + "px";
   drop.style.left = Math.random() * (dropsArea.offsetWidth - size) + "px";
@@ -86,7 +79,7 @@ function handleClick(drop, isGood, size) {
   if (isGood) {
     score += size === 60 ? 10 : 5;
     droplets++;
-    if (droplets >= 30) {
+    if (score >= 90) {
       endGame(true);
     }
   } else {
@@ -105,8 +98,6 @@ function handleClick(drop, isGood, size) {
 function endGame(won) {
   clearInterval(gameInterval);
   clearInterval(timerInterval);
-  // Hide overlay timer
-  overlayTimer.style.display = "none";
   if (won) {
     showConfetti();
     setTimeout(() => {
@@ -115,7 +106,6 @@ function endGame(won) {
   } else {
     alert("Game Over. Try again!");
   }
-  overlay.style.display = "flex";
   startBtn.style.display = "block";
   resetBtn.style.display = "none";
 }
@@ -128,10 +118,9 @@ function resetGame() {
   lives = 4;
   droplets = 0;
   updateUI();
-  overlay.style.display = "flex";
+  confettiContainer.innerHTML = "";
   startBtn.style.display = "block";
   resetBtn.style.display = "inline-block";
-  // Remove all drops
   document.querySelectorAll('.water-drop').forEach(d => d.remove());
 }
 
