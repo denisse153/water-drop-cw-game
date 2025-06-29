@@ -41,15 +41,16 @@ function startGame() {
 }
 
 function updateUI() {
-  scoreEl.textContent = score;
-  timeDisplay.textContent = timeLeft + 's';
-  livesEl.innerHTML = '';
+  document.getElementById('score').textContent = score;
+  document.getElementById('time').textContent = timeLeft + 's';
+  const livesContainer = document.getElementById('lives');
+  livesContainer.innerHTML = '';
   for (let i = 0; i < lives; i++) {
     const img = document.createElement('img');
-    img.src = 'img/emptyjerrycan.png';
-    img.alt = 'Jerry Can';
-    img.className = 'life-jerrycan';
-    livesEl.appendChild(img);
+    img.src = 'img/emptyjerrycan.png'; // Make sure this path matches your jerrycan image
+    img.alt = 'Jerrycan';
+    img.className = 'life-jerrycan'; // Add a class for styling
+    livesContainer.appendChild(img);
   }
   const fill = document.getElementById("water-fill");
   if (fill) {
@@ -57,21 +58,45 @@ function updateUI() {
   }
 }
 
-function createDrop() {
-  const drop = document.createElement("div");
-  const isGood = Math.random() > 0.3;
-  drop.classList.add("water-drop");
-  drop.classList.add(isGood ? "good" : "bad");
-  // Make big droplets much larger for better distinction
-  const size = isGood ? (Math.random() > 0.5 ? 80 : 40) : (Math.random() > 0.5 ? 80 : 40);
-  drop.style.width = size + "px";
-  drop.style.height = size + "px";
-  drop.style.left = Math.random() * (dropsArea.offsetWidth - size) + "px";
+function createDrop(brownChance = 0.3) {
+  const drop = document.createElement('div');
 
-  drop.addEventListener("click", () => handleClick(drop, isGood, size));
-  drop.addEventListener("animationend", () => drop.remove());
+  // Use brownChance to determine color
+  const isBlue = Math.random() > brownChance;
+  drop.className = 'water-drop ' + (isBlue ? 'blue-drop' : 'brown-drop');
 
-  dropsArea.appendChild(drop);
+  // Randomly assign size
+  const isBig = Math.random() > 0.5;
+  const size = isBig ? 60 : 40;
+  drop.style.width = size + 'px';
+  drop.style.height = size + 'px';
+
+  drop.style.left = Math.random() * (100 - size / 4) + '%';
+  drop.style.top = '0px';
+
+  // Remove drop when animation ends
+  drop.addEventListener('animationend', () => {
+    drop.remove();
+  });
+
+  // Collect on pointerdown/touchstart
+  const collect = () => {
+    drop.remove();
+    if (isBlue && !isBig) {
+      score += 5; // Blue small
+    } else if (isBlue && isBig) {
+      score += 10; // Blue big
+    } else if (!isBlue && !isBig) {
+      score -= 10; // Brown small
+    } else if (!isBlue && isBig) {
+      lives = Math.max(0, lives - 1); // Brown big
+    }
+    updateUI();
+  };
+  drop.addEventListener('pointerdown', collect);
+  drop.addEventListener('touchstart', collect);
+
+  document.getElementById('drops-area').appendChild(drop);
 }
 
 function handleClick(drop, isGood, size) {
@@ -93,6 +118,14 @@ function handleClick(drop, isGood, size) {
     }
   }
   updateUI();
+}
+
+function loseLife() {
+  lives--;
+  updateUI();
+  if (lives <= 0) {
+    endGame(false);
+  }
 }
 
 function endGame(won) {

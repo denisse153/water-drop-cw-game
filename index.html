@@ -4,6 +4,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Charity: Water Game</title>
   <link rel="stylesheet" href="style.css" />
+  
 </head>
 <body>
   <div class="game-wrapper">
@@ -27,6 +28,11 @@
     <div id="game-container">
       <div id="drops-area"></div>
       <!-- <div id="overlay-timer" style="font-size:2em; color:#2e9df7; margin:10px 0; text-align:center;">60</div> -->
+      <select id="difficulty-select" class="main-btn">
+        <option value="easy">Easy</option>
+        <option value="normal" selected>Normal</option>
+        <option value="hard">Hard</option>
+      </select>
       <button id="start-btn" class="main-btn">Start</button>
       <div id="jerrycan-row">
         <div id="jerrycan-bottom">
@@ -37,8 +43,52 @@
       </div>
       <div id="confetti-container"></div>
     </div>
+    <div class="donate-box">
+      <a href="https://www.charitywater.org/home" target="_blank" rel="noopener noreferrer">
+        Donate to charity: water here
+      </a>
+    </div>
   </div>
 
   <script src="script.js"></script>
+  <script>
+    const difficulties = {
+      easy:   { winScore: 550, time: 80, dropInterval: 500, brownChance: 0.45 },
+      normal: { winScore: 530, time: 60, dropInterval: 300, brownChance: 0.65 },
+      hard:   { winScore: 450, time: 40, dropInterval: 180, brownChance: 0.85 }
+    };
+
+    function startGame() {
+      const difficulty = document.getElementById("difficulty-select").value;
+      const settings = difficulties[difficulty];
+
+      score = 0;
+      timeLeft = settings.time;
+      lives = 4;
+      droplets = 0;
+      winScore = settings.winScore;
+      brownChance = settings.brownChance; // <-- Add this line
+      updateUI();
+      confettiContainer.innerHTML = "";
+      resetBtn.style.display = "inline-block";
+      startBtn.style.display = "none";
+
+      timerInterval = setInterval(() => {
+        timeLeft--;
+        timeDisplay.textContent = timeLeft + 's';
+        if (score >= winScore) {
+          endGame(true);
+        }
+        if (timeLeft <= 0) {
+          endGame(score >= winScore);
+        }
+      }, 1000);
+
+      gameInterval = setInterval(() => {
+        createDrop(brownChance); // <-- Pass brownChance to createDrop
+      }, settings.dropInterval);
+    }
+
+  </script>
 </body>
 </html>

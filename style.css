@@ -25,7 +25,18 @@ Fonts:
 }
 
 body {
-  font-family: Arial, sans-serif;
+  font-family: 'Georgia', serif;
+}
+
+#start-btn,
+#reset-btn,
+#difficulty-select,
+#difficulty-select option {
+  font-family: 'Georgia', serif;
+}
+
+body {
+  font-family: 'Georgia', serif;
   background-color: #f0f8ff;
   display: flex;
   justify-content: center;
@@ -107,9 +118,9 @@ header {
 }
 
 .life-jerrycan {
-  width: 24px;
+  width: 32px;
   height: 32px;
-  margin-right: 2px;
+  margin-right: 4px;
   vertical-align: middle;
   object-fit: contain;
 }
@@ -141,15 +152,11 @@ header {
 .water-drop {
   position: absolute;
   border-radius: 50% 50% 60% 60% / 60% 60% 100% 100%;
-  background: #2e9df7;
   box-shadow: 0 4px 16px rgba(46,157,247,0.25), 0 0 0 4px rgba(255,255,255,0.5);
   cursor: pointer;
   z-index: 2000;
-  animation: drop-fall 1.5s linear forwards;
+  animation: drop-fall 2s linear forwards;
   pointer-events: auto;
-  min-width: 56px;
-  min-height: 56px;
-  border: 8px solid rgba(0,0,0,0);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -172,6 +179,15 @@ header {
   transform: scale(1.08);
 }
 
+.blue-drop {
+  background: #2e9df7;
+}
+
+.brown-drop {
+  background: #a0522d;
+  box-shadow: 0 4px 16px rgba(160,82,45,0.25), 0 0 0 4px rgba(255,255,255,0.5);
+}
+
 @keyframes fall {
   from {
     top: -40px;
@@ -190,7 +206,7 @@ header {
 
 @keyframes drop-fall {
   from { top: 0; }
-  to { top: 85%; opacity: 0.7; }
+  to { top: 90%; }
 }
 
 #jerrycan-bottom {
@@ -346,6 +362,46 @@ header {
   margin-bottom: 10px;
 }
 
+.drop {
+  width: 40px;
+  height: 40px;
+  background: url('img/drop.png') no-repeat center/contain;
+  position: absolute;
+  cursor: pointer;
+  z-index: 10;
+}
+
+.donate-box {
+  position: fixed;
+  top: 30%;
+  right: 16px;
+  left: auto;
+  bottom: auto;
+  background: #f4f9fd;
+  border: 2px solid #2e9df7;
+  border-radius: 10px;
+  padding: 6px 10px;
+  box-shadow: 0 4px 16px rgba(46,157,247,0.10);
+  z-index: 9999;
+  font-size: 0.92em;
+  font-weight: bold;
+  max-width: 120px;
+  min-width: 80px;
+  text-align: center;
+  pointer-events: auto;
+}
+
+.donate-box a {
+  color: #2e9df7;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.donate-box a:hover {
+  color: #1b6ca8;
+  text-decoration: underline;
+}
+
 @media (max-width: 600px) {
   .game-wrapper {
     padding: 5px;
@@ -398,5 +454,33 @@ header {
     margin-top: 10px;
     width: 100%;
     box-sizing: border-box;
+  }
+  .donate-box {
+    position: fixed;
+    top: auto;
+    right: 50%;
+    left: 50%;
+    bottom: 16px;
+    transform: translateX(-50%);
+    width: 90vw;
+    max-width: 340px;
+    text-align: center;
+    padding: 14px 8px;
+  }
+}
+
+@media (max-width: 800px) {
+  .donate-box {
+    top: auto;
+    right: 50%;
+    left: 50%;
+    bottom: 12px;
+    transform: translateX(-50%);
+    width: 90vw;
+    max-width: 220px;
+    min-width: 100px;
+    padding: 8px 6px;
+    font-size: 0.95em;
+    z-index: 9999;
   }
 }
